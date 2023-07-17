@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "back"
+version = "0.1.0"
+description = ""
+authors = ["Dar_rius <mohamedtine17@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django-rest-framework-mongoengine = "^3.4.1"
+django = "^4.2.3"
+djangorestframework = "^3.14.0"
+django-cors-headers = "^4.2.0"
+mongoengine = "^0.27.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
