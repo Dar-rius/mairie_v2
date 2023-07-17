@@ -69,176 +69,32 @@ def logout_view(request):
 
 ## VIEWS DES DECLARATIONS
 #view pour les declarations d'acte de naissance
-def declarationActeNaissance_view(request):
-    #intanciation de la class 
-    acteNaiss = ActeNaissance()
+@api_view(['POST'])
+def declareNaissance_view(request):
     if request.method == "POST":
-        #convertir les dates
-        dateNaissancePere=request.POST["dateNaissancePere"] 
-        truedateNaissancePere=datetime.strptime(dateNaissancePere, "%Y-%m-%d")
-        dateNaissanceMere=request.POST["dateNaissanceMere"]
-        truedateNaissanceMere=datetime.strptime(dateNaissanceMere, "%Y-%m-%d")
-        #On donne les valeurs a tous les attricbuts de la class
-        acteNaiss.numeroDoc=request.POST["numeroDoc"]
-        acteNaiss.numeroDocSTR=request.POST["numeroDocSTR"]
-        acteNaiss.Annee=request.POST["annee"]
-        acteNaiss.prenom=request.POST["prenom"]
-        acteNaiss.nom=request.POST["nom"]
-        acteNaiss.sexe=request.POST["sexe"] 
-        acteNaiss.dateNaissance=request.POST["dateNaissance"]
-        acteNaiss.heure=request.POST["heure"]
-        acteNaiss.lieuNaissance=request.POST["lieuNaissance"]
-        acteNaiss.formationSanitaire=request.POST["formationSanitaire"]
-        acteNaiss.prenomPere=request.POST["prenomPere"]
-        acteNaiss.nomPere=request.POST["nomPere"]
-        acteNaiss.dateNaissancePere=truedateNaissancePere
-        acteNaiss.lieuNaissancePere=request.POST["LieuNaissancePere"]
-        acteNaiss.professionPere=request.POST["professionPere"]
-        acteNaiss.domicilePere=request.POST["domicilePere"]
-        acteNaiss.prenomMere=request.POST["prenomMere"]
-        acteNaiss.nomMere=request.POST["nomMere"]
-        acteNaiss.dateNaissanceMere=truedateNaissanceMere
-        acteNaiss.lieuNaissanceMere=request.POST["LieuNaissanceMere"]
-        acteNaiss.professionMere=request.POST["professionMere"]
-        acteNaiss.domicileMere=request.POST["domicileMere"]
-        acteNaiss.nomDeclarateur=request.POST["nomDeclarateur"]
-        acteNaiss.prenomDeclarateur=request.POST["prenomDeclarateur"]
-        acteNaiss.adresseDeclarateur=request.POST["adresseDeclarateur"]
-        acteNaiss.numeroIdentification=request.POST["numeroIdentification"]
-        acteNaiss.dateDeclaration=request.POST["dateDeclaration"]
-        acteNaiss.jugeAutoNumero=request.POST["jugeAutoNumero"]
-        acteNaiss.jugeAutoLieu=request.POST["jugeAutoLieu"]
-        acteNaiss.jugeAutoDate=request.POST["jugeAutoDate"]
-        #on enregistre les valeurs des attributs dans la base ede donnee
-        acteNaiss.save()
+        serializer = ActeNaisSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(status.HTTP_201_CREATED)
 
-    return render(request, "pages/mairie/Declaration/actesNaiss.html", {})
 
 #view pour les declarations d'acte de deces
-def declarationActeDeces_view(request):
-    acteDeces = ActeDeces()
-    date = datetime.now()
-
-    if request.method == "POST":
-        #convertir les dates
-        dateNaissance= request.POST["dateNaissance"] 
-        trueDateNaiss= datetime.strptime(dateNaissance, "%Y-%m-%d")
-        jugeDate=request.POST["jugeAutoDate"]
-        trueJugeDate=datetime.strptime(jugeDate, "%Y-%m-%d")
-        acteDeces.numeroDoc=request.POST["numeroDoc"]
-        acteDeces.Annee=str(date.year)
-        acteDeces.dateDeces=request.POST["dateDeces"]
-        acteDeces.heureDeces=request.POST["heureDeces"] 
-        acteDeces.formationSanitaire=request.POST["formationSanitaire"] 
-        acteDeces.lieuDeces=request.POST["lieuDeces"] 
-        acteDeces.prenom=request.POST["prenom"] 
-        acteDeces.nom=request.POST["nom"] 
-        acteDeces.sexe=request.POST["sexe"]  
-        acteDeces.dateNaissance= trueDateNaiss
-        acteDeces.lieuNaissance=request.POST["lieuNaissance"] 
-        acteDeces.profession=request.POST["profession"] 
-        acteDeces.domicile=request.POST["domicile"]
-        acteDeces.mari=request.POST["mari"] 
-        acteDeces.prenomPere=request.POST["prenomPere"] 
-        acteDeces.nomPere=request.POST["nomPere"] 
-        acteDeces.professionPere=request.POST["professionPere"] 
-        acteDeces.domicilePere=request.POST["domicilePere"] 
-        acteDeces.prenomMere=request.POST["prenomMere"] 
-        acteDeces.nomMere=request.POST["nomMere"] 
-        acteDeces.professionMere=request.POST["professionMere"] 
-        acteDeces.domicileMere=request.POST["domicileMere"] 
-        acteDeces.nomDeclarateur=request.POST["nomDeclarateur"] 
-        acteDeces.prenomDeclarateur=request.POST["prenomDeclarateur"] 
-        acteDeces.professionDeclarateur=request.POST["professionDeclarateur"] 
-        acteDeces.adresseDeclarateur=request.POST["adresseDeclarateur"] 
-        acteDeces.degreParente=request.POST["degreParente"] 
-        acteDeces.dateDeclaration=request.POST["dateDeclaration"] 
-        acteDeces.heureDeclaration=request.POST["heureDeclaration"] 
-        acteDeces.jugeAutoNumero=request.POST["jugeAutoNumero"] 
-        acteDeces.jugeAutoDate=trueJugeDate
-        acteDeces.save()
-    return render (request, "pages/mairie/Declaration/actesDeces.html", {})
+@api_view(['POST'])
+def declareDeces_view(request):
+    if request.method=='POST':
+        serializer=ActeDecesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(status.HTTP_201_CREATED)
 
 #view pour les declarations d'acte de mariage
-def declarationActeMariage_view(request):
-    acteMariage = ActeMariage()
-    date = datetime.now()
-
-    if request.method == "POST":
-        #convertir les dates
-        dateDeclaration=request.POST["dateDeclaration"] 
-        trueDateDeclaration=datetime.strptime(dateDeclaration, "%Y-%m-%d")
-        jugeDate=request.POST["jugeAutoDate"]
-        trueJugeDate =datetime.strptime(jugeDate, "%Y-%m-%d")
-
-        acteMariage.numeroDoc=request.POST["numeroDoc"]
-        acteMariage.Annee=str(date.year)
-        acteMariage.dateDeclaration=trueDateDeclaration
-        acteMariage.lieuMariage=request.POST["lieuMariage"]
-        acteMariage.devant=request.POST["devant"]
-        acteMariage.officierEtat=request.POST["officierEtat"]
-        acteMariage.prenomEpoux=request.POST["prenomEpoux"]
-        acteMariage.nomEpoux=request.POST["nomEpoux"]
-        acteMariage.dateNaissEpoux=request.POST["dateNaissEpoux"]
-        acteMariage.lieuNaissEpoux=request.POST["lieuNaissEpoux"]
-        acteMariage.professionEpoux=request.POST["professionEpoux"]
-        acteMariage.domicileEpoux=request.POST["domicileEpoux"]
-        acteMariage.residenceEpoux=request.POST["residenceEpoux"]
-        acteMariage.epouse=request.POST["epouse"]
-        acteMariage.prenomPereEpoux=request.POST["prenomPereEpoux"]
-        acteMariage.nomPereEpoux=request.POST["nomPereEpoux"]
-        acteMariage.dateNaissPereEpoux=request.POST["dateNaissPereEpoux"]
-        acteMariage.lieuNaissPereEpoux=request.POST["lieuNaissPereEpoux"]
-        acteMariage.professionPereEpoux=request.POST["professionPereEpoux"]
-        acteMariage.domicilePereEpoux=request.POST["domicilePereEpoux"]
-        acteMariage.prenomMereEpoux=request.POST["prenomMereEpoux"]
-        acteMariage.nomMereEpoux=request.POST["nomMereEpoux"]
-        acteMariage.dateNaissMereEpoux=request.POST["dateNaissMereEpoux"]
-        acteMariage.lieuNaissMereEpoux=request.POST["lieuNaissMereEpoux"]
-        acteMariage.professionMereEpoux=request.POST["professionMereEpoux"]
-        acteMariage.domicileMereEpoux=request.POST["domicileMereEpoux"]
-        acteMariage.prenomEpouse=request.POST["prenomEpouse"]
-        acteMariage.nomEpouse=request.POST["nomEpouse"]
-        acteMariage.dateNaissEpouse=request.POST["dateNaissEpouse"]
-        acteMariage.lieuNaissEpouse=request.POST["lieuNaissEpouse"]
-        acteMariage.professionEpouse=request.POST["professionEpouse"]
-        acteMariage.domicileEpouse=request.POST["domicileEpouse"]
-        acteMariage.residenceEpouse=request.POST["residenceEpouse"]
-        acteMariage.epoux=request.POST["epoux"]
-        acteMariage.prenomPereEpouse=request.POST["prenomPereEpouse"]
-        acteMariage.nomPereEpouse=request.POST["nomPereEpouse"]
-        acteMariage.dateNaissPereEpouse=request.POST["dateNaissPereEpouse"]
-        acteMariage.lieuNaissPereEpouse=request.POST["lieuNaissPereEpouse"]
-        acteMariage.professionPereEpouse=request.POST["professionPereEpouse"]
-        acteMariage.domicilePereEpouse=request.POST["domicilePereEpouse"]
-        acteMariage.prenomMereEpouse=request.POST["prenomMereEpouse"]
-        acteMariage.nomMereEpouse=request.POST["nomMereEpouse"]
-        acteMariage.dateNaissMereEpouse=request.POST["dateNaissMereEpouse"]
-        acteMariage.lieuNaissMereEpouse=request.POST["lieuNaissMereEpouse"]
-        acteMariage.professionMereEpouse=request.POST["professionMereEpouse"]
-        acteMariage.domicileMereEpouse=request.POST["domicileMereEpouse"]
-        acteMariage.declaration=request.POST["declaration"]
-        acteMariage.dot=request.POST["dot"]
-        acteMariage.regimeMatrimonial=request.POST["regimeMatrimonial"]
-        acteMariage.dateCelebration=request.POST["dateCelebration"]
-        acteMariage.lieuCelebration=request.POST["lieuCelebration"]
-        acteMariage.jugeAutoNumero=request.POST["jugeAutoNumero"]
-        acteMariage.jugeAutoDate=trueJugeDate
-        acteMariage.temoinNom1=request.POST["temoinNom1"]
-        acteMariage.temoinPrenom1=request.POST["temoinPrenom1"]
-        acteMariage.temoinNumId1=request.POST["temoinNumId1"]
-        acteMariage.temoinNom2=request.POST["temoinNom2"]
-        acteMariage.temoinPrenom2=request.POST["temoinPrenom2"]
-        acteMariage.temoinNumId2=request.POST["temoinNumId2"]
-        acteMariage.temoinNom3=request.POST["temoinNom3"]
-        acteMariage.temoinPrenom3=request.POST["temoinPrenom3"]
-        acteMariage.temoinNumId3=request.POST["temoinNumId3"]
-        acteMariage.temoinNom4=request.POST["temoinNom4"]
-        acteMariage.temoinPrenom4=request.POST["temoinPrenom4"]
-        acteMariage.temoinNumId4=request.POST["temoinNumId4"]
-        acteMariage.save()
-
-    return render(request, "pages/mairie/Declaration/actesMariage.html", {})
+@api_view(['POST'])
+def declareMariage_view(request):
+    if request.method=='POST':
+        serializer = ActeMariageSerailizer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(status.HTPP_201_CREATED)
 
 
 

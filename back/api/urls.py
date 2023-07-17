@@ -11,4 +11,7 @@ urlpatterns=[
     path('api/deces/<int:numeroDoc>', views.deces_view, name='deces'),
 
     ## URLS DES DECLARATIONS
+    path('api/declare-naissance', views.declareNaissance_view, name='declareNaiss'),
+    path('api/declare-mariage', views.declareMariage_view, name='declareMariage'),
+    path('api/declare-deces', views.declareDeces_view, name='declareDeces'),
 ]
