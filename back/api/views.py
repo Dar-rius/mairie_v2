@@ -94,7 +94,8 @@ def declareMariage_view(request):
         serializer = ActeMariageSerailizer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(status.HTPP_201_CREATED)
+        return Response(status.HTTP_201_CREATED)
+
 
 
 

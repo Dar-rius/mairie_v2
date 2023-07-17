@@ -2,7 +2,6 @@ from rest_framework_mongoengine.serializers import  DocumentSerializer
 from .collectionsDB import *
 
 
-
 class ActeNaisSerializer(DocumentSerializer):
     class Meta:
         model=ActeNaissance
