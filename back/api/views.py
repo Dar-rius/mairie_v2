@@ -4,23 +4,13 @@ from datetime import datetime
 from mongoengine import *
 from django.contrib.auth import login, authenticate, logout
 from mongoengine.queryset.visitor import Q
-from .serializers import TestData
+from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status 
-# Create your views here.
 
-#view pour retoruner le user en cas de page qui existe pas
-def redirection_root(request):
-    return redirect("accueille")
 
-@api_view(['GET'])
-def testSerial(request):
-    if request.method=="GET":
-        data = ActeDeces.objects.all()
-        serializer = TestData(data, context={'request':request}, many=True)
-        return Response(serializer.data)
-
+## VIEWS DE L'Accueil
 #view pour la recherche actes du registre
 def searchRegistre_view(request): 
     acteNaiss_seached = ""
@@ -36,7 +26,6 @@ def searchRegistre_view(request):
     return render(request, "pages/mairie/Dashboard/registre/search.html", {"acteNaiss_search": acteNaiss_seached,
                                                 "acteDeces_search": acteDeces_seached,
                                                 "acteMariage_search": acteMariage_seached})
-
 
 #view pour la recherche des demandes
 def searchDemande_view(request): 
@@ -54,22 +43,8 @@ def searchDemande_view(request):
                                                 "ademanDeces_seached": demandeDeces_seached,
                                                 "demandeMariage_seached": demandeMariage_seached})
 
-#views pour l'auth
 
-#view du register
-def register_view(request):
-    if request.method == "POST":
-        form = User_form(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect("dashboard")
-        else:
-            form = User_form()
-
-    return render(request, "pages/mairie/auth/register.html")
-
-
+## VIEW POUR LES PAGES DE CONNEXION
 #View du login
 def login_view(request):
     if request.method == "POST":
@@ -86,18 +61,13 @@ def login_view(request):
 
     return render(request, "pages/mairie/auth/login.html")
 
-
 #view pour le logout
 def logout_view(request):
     logout(request)
     return redirect("login")
 
 
-#views de l'ensemble des declarations
-def allDeclaration_view(request):
-    return render(request, "pages/mairie/Dashboard/declaration.html", {})
-
-
+## VIEWS DES DECLARATIONS
 #view pour les declarations d'acte de naissance
 def declarationActeNaissance_view(request):
     #intanciation de la class 
@@ -108,7 +78,6 @@ def declarationActeNaissance_view(request):
         truedateNaissancePere=datetime.strptime(dateNaissancePere, "%Y-%m-%d")
         dateNaissanceMere=request.POST["dateNaissanceMere"]
         truedateNaissanceMere=datetime.strptime(dateNaissanceMere, "%Y-%m-%d")
-
         #On donne les valeurs a tous les attricbuts de la class
         acteNaiss.numeroDoc=request.POST["numeroDoc"]
         acteNaiss.numeroDocSTR=request.POST["numeroDocSTR"]
@@ -144,7 +113,6 @@ def declarationActeNaissance_view(request):
         acteNaiss.save()
 
     return render(request, "pages/mairie/Declaration/actesNaiss.html", {})
-
 
 #view pour les declarations d'acte de deces
 def declarationActeDeces_view(request):
@@ -190,64 +158,6 @@ def declarationActeDeces_view(request):
         acteDeces.jugeAutoDate=trueJugeDate
         acteDeces.save()
     return render (request, "pages/mairie/Declaration/actesDeces.html", {})
-
-
-# view pour le dashboard
-
-def dashboard_view(request):
-    acteNaiss=ActeNaissance.objects.all().count()
-    acteDeces=ActeDeces.objects.all().count()
-    acteMariage=ActeMariage.objects.all().count()
-    demandeNaiss=Demande_acteNaissance.objects.all().count()
-    demandeDeces=Demande_acteDece.objects.all().count()
-    demandeMariage=Demande_acteMariage.objects.all().count()
-    return render(request,"pages/mairie/Dashboard/dashbord.html",{
-        "acteNaiss": acteNaiss,
-        "acteDece": acteDeces,
-        "acteMariage": acteMariage,
-        "demandeNaiss": demandeNaiss,
-        "demandeDeces": demandeDeces,
-        "demandeMariage": demandeMariage,
-    })
-
-# view pour afficher la liste l'ensembles des actes de naissance
-def listeNaissances_view(request):
-    actesNaiss = ActeNaissance.objects.all()
-
-    return render(request,"pages/mairie/Dashboard/registre/certif_naissances.html",{'naissances':actesNaiss})
-
-# view pour afficher la liste l'ensembles des actes de deces
-def listeDeces_view(request):
-    actesDeces = ActeDeces.objects.all()
-
-    return render(request,"pages/mairie/Dashboard/registre/certif_deces.html",{'deces':actesDeces})
-
-# view pour afficher la liste l'ensembles des actes de mariages
-def listeMariages_view(request):
-    actesMariage = ActeMariage.objects.all()
-
-    return render(request,"pages/mairie/Dashboard/registre/certif_mariages.html",{'mariages':actesMariage})
-    
-
-# views pour afficher les informations d'une personne decede
-def acteDece_view(request,numeroDoc):
-    acteDece = ActeDeces.objects.get(numeroDoc=numeroDoc)
-
-    return render(request,"pages/mairie/Dashboard/registre/info_dece.html",{'acte_de_dece':acteDece})
-
-
-# views pour afficher les informations d'une personne mariee
-def acteMariages_view(request,numeroDoc):
-    acteMariage = ActeMariage.objects.get(numeroDoc=numeroDoc)
-
-    return render(request,"pages/mairie/Dashboard/registre/info_mariage.html",{'acte_de_mariage':acteMariage})
-
-# views pour afficher les informations concernant la naissance 
-def acteNaissance_view(request,numeroDoc):
-    acteNaissance = ActeNaissance.objects.get(numeroDoc=numeroDoc)
-
-    return render(request,"pages/mairie/Dashboard/registre/info_naissance.html",{'acte_de_naissance': acteNaissance})
-
 
 #view pour les declarations d'acte de mariage
 def declarationActeMariage_view(request):
@@ -331,11 +241,88 @@ def declarationActeMariage_view(request):
     return render(request, "pages/mairie/Declaration/actesMariage.html", {})
 
 
-# partie pour les demandes d'actes pour les utilisateurs
-def acceuil_demande(request):
-    return render(request,"pages/demandes/home.html")
+
+# view pour le dashboard
+def dashboard_view(request):
+    acteNaiss=ActeNaissance.objects.all().count()
+    acteDeces=ActeDeces.objects.all().count()
+    acteMariage=ActeMariage.objects.all().count()
+    demandeNaiss=Demande_acteNaissance.objects.all().count()
+    demandeDeces=Demande_acteDece.objects.all().count()
+    demandeMariage=Demande_acteMariage.objects.all().count()
+    return render(request,"pages/mairie/Dashboard/dashbord.html",{
+        "acteNaiss": acteNaiss,
+        "acteDece": acteDeces,
+        "acteMariage": acteMariage,
+        "demandeNaiss": demandeNaiss,
+        "demandeDeces": demandeDeces,
+        "demandeMariage": demandeMariage,
+    })
 
 
+
+## LISTE DES REGISTRE
+# view pour afficher la liste l'ensembles des actes de naissance
+@api_view(['GET'])
+def listeNaissances_view(request):
+    if request.method=="GET":
+        actesNaiss = ActeNaissance.objects.all()
+        serializer = ActeNaisSerializer(actesNaiss, context={'request':request}, many=True)
+        return Response(serializer.data)
+
+# view pour afficher la liste l'ensembles des actes de deces
+@api_view(['GET'])
+def listeDeces_view(request):
+    actesDeces = ActeDeces.objects.all()
+    serializer = ActeDecesSerializer(actesDeces, context={'request':request}, many=True)
+    return Response(serializer.data)
+
+# view pour afficher la liste l'ensembles des actes de mariages
+@api_view(['GET'])
+def listeMariages_view(request):
+    actesMariage = ActeMariage.objects.all()
+    serializer = ActeMariageSerailizer(actesMariage, context={'request':request}, many=True)
+    return Response(serializer.data)
+
+    
+## DETAILS DES ACTES D'ETAT CIVIL
+# views pour afficher les informations d'une personne decede
+@api_view(['GET'])
+def deces_view(request,numeroDoc):
+    try:
+        acteDeces = ActeDeces.objects.get(numeroDoc=numeroDoc)
+    except acteDeces.DoesNotExit:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = ActeDecesSerializer(acteDeces, context={'request':request})
+        return Response(serializer.data)
+
+
+# views pour afficher les informations d'une personne mariee
+@api_view(['GET'])
+def mariage_view(request,numeroDoc):
+    try:
+        acteMariage = ActeMariage.objects.get(numeroDoc=numeroDoc)
+    except acteMariage.DoesNotFound:
+        return Response(status.HTTP_404_NOT_FOUND)        
+    if request.method == 'GET':
+        serializer = ActeMariageSerailizer(acteMariage, context={'request':request})
+        return Response(serializer.data)
+
+
+# views pour afficher les informations concernant la naissance 
+@api_view(['GET'])
+def naissance_view(request,numeroDoc):
+    try:
+        acteNaissance = ActeNaissance.objects.get(numeroDoc=numeroDoc)
+    except acteNaissance.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = ActeNaisSerializer(acteNaissance, context={'request':request})
+        return Response(serializer.data)
+
+
+## FORMULAIRE DES DEMANDES
 # ceci est le view pour effectuer une demande d'acte de naissance
 def demande_acteNaissance(request):
     acteNaiss=Demande_acteNaissance()
@@ -397,21 +384,19 @@ def demande_acteDece(request):
     return render(request,"pages/demandes/demande_acteDeces.html",{'acteDece':acteDece, "message": message})
 
 
-#partie pour voir les demandes d'acte pour l'admin
 
+##LISTE DES DEMANDES D'ACTES D'ETAT CIVIL
 # celui la c'est pour la liste des demandes de naissance
 def listeDemandeNaissance(request):
     demandeNaissance = Demande_acteNaissance.objects.all()
 
     return render(request,"pages/mairie/Dashboard/listeDemande/listeDemandeNaissance.html",{'naissances':demandeNaissance})
 
-
 # celui ci pour les demandes de d'acte mariages
 def listeDemandeMariage(request):
     demandeMariage = Demande_acteMariage.objects.all()
 
     return render(request,"pages/mairie/Dashboard/listeDemande/listeDemandeMariage.html",{'mariages':demandeMariage})
-
 
 # celui la pour les demandes de d'acte dece
 def listeDemandeDece(request):
@@ -420,6 +405,7 @@ def listeDemandeDece(request):
     return render(request,"pages/mairie/Dashboard/listeDemande/listeDemandeDece.html",{'Deces':demandeDece})
 
 
+## DETAILS SUR LES DEMANDES
 # la view c'est pour afficher les informations concernant une demande d'acte de naissance
 def demandeNaissance(request,numeroDoc):
     demande = Demande_acteNaissance.objects.get(numeroDoc=numeroDoc)
@@ -439,6 +425,7 @@ def demandeDece(request,numeroDoc):
     return render(request,"pages/mairie/Dashboard/listeDemande/demandeDece.html",{'acte':demande})
 
 
+## IMPRESSIONS DES DOCUMENTS A IMPRIMER
 #view du doc de l'acte de naissance a imprimer 
 def imprimeActeNaissance(request, numeroDoc):
     acteNaissanceData = ActeNaissance.objects.get(numeroDoc = numeroDoc)
