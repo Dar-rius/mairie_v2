@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .collectionsDB import ActeNaissance, ActeDeces, ActeMariage, Demande_acteDece, Demande_acteMariage, Demande_acteNaissance
-from datetime import datetime
 from mongoengine import *
 from django.contrib.auth import login, authenticate, logout
 from mongoengine.queryset.visitor import Q
@@ -160,7 +159,7 @@ def deces_view(request,numeroDoc):
 def mariage_view(request,numeroDoc):
     try:
         acteMariage = ActeMariage.objects.get(numeroDoc=numeroDoc)
-    except acteMariage.DoesNotFound:
+    except acteMariage.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)        
     if request.method == 'GET':
         serializer = ActeMariageSerailizer(acteMariage, context={'request':request})
@@ -233,24 +232,34 @@ def listeDemandeDeces(request):
 
 ## IMPRESSIONS DES DOCUMENTS A IMPRIMER
 #view du doc de l'acte de naissance a imprimer 
+@api_view(['GET'])
 def imprimeActeNaissance(request, numeroDoc):
-    acteNaissanceData = ActeNaissance.objects.get(numeroDoc = numeroDoc)
-    demandeNaissance = Demande_acteNaissance.objects.get(numeroDoc = numeroDoc)
-    return render(request, "docs/acteNaissance.html", {"acteNaiss": acteNaissanceData, 
-                                                        "demandeNaiss": demandeNaissance})
-
+    try:
+        acteNaissance = ActeNaissance.objects.get(numeroDoc=numeroDoc)
+    except acteNaissance.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = ActeNaisSerializer(acteNaissance, context={'request':request})
+        return Response(serializer.data)
 
 #view du doc de l'acte de deces a imprimer 
+@api_view(['GET'])
 def imprimeActeDeces(request, numeroDoc):
-    acteDecesData = ActeDeces.objects.get(numeroDoc = numeroDoc)
-    demandeDeces = Demande_acteDece.objects.get(numeroDoc = numeroDoc)
-    return render(request, "docs/acteDeces.html", {"acteDeces": acteDecesData,
-                                                    "demandeDeces": demandeDeces})
-
+    try:
+        acteDeces = ActeDeces.objects.get(numeroDoc=numeroDoc)
+    except acteDeces.DoesNotExit:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method=="GET":
+        serializer=ActeDecesSerializer(acteDeces, context={'request':request})
+    return Response(serializer.data)
 
 #view du doc de l'acte de mariage a imprimer 
+@api_view(['GET'])
 def imprimeActeMariage(request, numeroDoc):
-    acteMariageData = ActeMariage.objects.get(numeroDoc = numeroDoc)
-    demandeMariage = Demande_acteMariage.objects.get(numeroDoc = numeroDoc)
-    return render(request, "docs/acteMariage.html", {"acteMariage": acteMariageData,
-                                                        "demandeMariage": demandeMariage})
+    try:
+        data = ActeMariage.objects.get(numeroDoc=numeroDoc)
+    except data.DoesNotExit:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method=="GET":
+        serializer=ActeMariageSerailizer(data, context={'request':request})
+    return Response(serializer.data)
