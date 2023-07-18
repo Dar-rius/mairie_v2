@@ -23,8 +23,15 @@ urlpatterns=[
     path('api/liste-demande-deces', views.listeDemandeDeces, name="listeDemandeDeces"),
     path('api/liste-demande-mariage', views.listeDemandeMariage, name="listeDemandeMariage"),
     
-    ## URLS POYR LES DOCUMENTS D'IMPRESSION
+    ## URLS POUR LES DOCUMENTS D'IMPRESSION
     path('api/impression-naissance/<int:numeroDoc>', views.imprimeActeNaissance, name='impressionNaissance'),
     path('api/impression-mariage/<int:numeroDoc>', views.imprimeActeMariage ,name='impressionMariage'),
     path('api/impression-deces/<int:numeroDoc>', views.imprimeActeDeces, name='impressionDeces'),
+    
+    ## URLS POUR UPDATE LES DOCUMENTS
+    path('api/update-naissance/<int:numeroDoc>', views.changeNaissance, name='updateNaissance'),
+    path('api/update-mariage/<int:numeroDoc>', views.changeMariage ,name='updateMariage'),
+    path('api/update-deces/<int:numeroDoc>', views.changeDeces, name='updateDeces'),
+
+
 ]

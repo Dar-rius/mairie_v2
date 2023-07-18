@@ -13,7 +13,7 @@ class ActeDecesSerializer(DocumentSerializer):
         fields="__all__"
 
 
-class ActeMariageSerailizer(DocumentSerializer):
+class ActeMariageSerializer(DocumentSerializer):
     class Meta:
         model=ActeMariage
         fields="__all__"

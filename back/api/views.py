@@ -74,7 +74,7 @@ def declareNaissance_view(request):
         serializer = ActeNaisSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(status.HTTP_201_CREATED)
+            return Response(status.HTTP_201_CREATED)
 
 
 #view pour les declarations d'acte de deces
@@ -84,17 +84,59 @@ def declareDeces_view(request):
         serializer=ActeDecesSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(status.HTTP_201_CREATED)
+            return Response(status.HTTP_201_CREATED)
 
 #view pour les declarations d'acte de mariage
 @api_view(['POST'])
 def declareMariage_view(request):
     if request.method=='POST':
-        serializer = ActeMariageSerailizer(data=request.data)
+        serializer = ActeMariageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(status.HTTP_201_CREATED)
+            return Response(status.HTTP_201_CREATED)
 
+##  UPDATE DECLARATION
+@api_view(['PUT'])
+def changeNaissance(request, numeroDoc):
+    try:
+        acteNaiss = ActeNaissance.objects.get(numeroDoc=numeroDoc)
+    except acteNaiss.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method == "PUT":
+        serializer = ActeNaisSerializer(acteNaiss, data=request.data, context={'request':request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status.HTTP_204_NO_CONTENT)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+
+#view pour les declarations d'acte de deces
+@api_view(['PUT'])
+def changeDeces(request, numeroDoc):
+    try:
+        data = ActeDeces.objects.get(numeroDoc=numeroDoc)
+    except data.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method == "PUT":
+        serializer = ActeDecesSerializer(data, data=request.data, context={'request':request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status.HTTP_204_NO_CONTENT)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+#view pour les declarations d'acte de mariage
+@api_view(['PUT'])
+def changeMariage(request, numeroDoc):
+    try:
+        data = ActeMariage.objects.get(numeroDoc=numeroDoc)
+    except data.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+    if request.method == "PUT":
+        serializer = ActeMariageSerializer(data, data=request.data, context={'request':request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status.HTTP_204_NO_CONTENT)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -137,7 +179,7 @@ def listeDeces_view(request):
 @api_view(['GET'])
 def listeMariages_view(request):
     actesMariage = ActeMariage.objects.all()
-    serializer = ActeMariageSerailizer(actesMariage, context={'request':request}, many=True)
+    serializer = ActeMariageSerializer(actesMariage, context={'request':request}, many=True)
     return Response(serializer.data)
 
     
@@ -162,7 +204,7 @@ def mariage_view(request,numeroDoc):
     except acteMariage.DoesNotExist:
         return Response(status.HTTP_404_NOT_FOUND)        
     if request.method == 'GET':
-        serializer = ActeMariageSerailizer(acteMariage, context={'request':request})
+        serializer = ActeMariageSerializer(acteMariage, context={'request':request})
         return Response(serializer.data)
 
 
@@ -261,5 +303,5 @@ def imprimeActeMariage(request, numeroDoc):
     except data.DoesNotExit:
         return Response(status.HTTP_404_NOT_FOUND)
     if request.method=="GET":
-        serializer=ActeMariageSerailizer(data, context={'request':request})
+        serializer=ActeMariageSerializer(data, context={'request':request})
     return Response(serializer.data)
