@@ -181,105 +181,54 @@ def naissance_view(request,numeroDoc):
 
 ## FORMULAIRE DES DEMANDES
 # ceci est le view pour effectuer une demande d'acte de naissance
-def demande_acteNaissance(request):
-    acteNaiss=Demande_acteNaissance()
-    message="" 
-    if request.method == "POST":
-        acteNaiss.prenom=request.POST["prenom"]
-        acteNaiss.numeroDoc=request.POST["numeroDoc"]
-        acteNaiss.nom=request.POST["nom"]
-        acteNaiss.prenomPere=request.POST["prenomPere"]
-        acteNaiss.nomPere=request.POST["nomPere"]
-        acteNaiss.prenomMere=request.POST["prenomMere"]
-        acteNaiss.nomMere=request.POST["nomMere"]
-        if ActeNaissance.objects.get(numeroDoc = acteNaiss.numeroDoc,prenom = acteNaiss.prenom,nom = acteNaiss.nom,prenomPere = acteNaiss.prenomPere,nomPere = acteNaiss.nomPere,prenomMere = acteNaiss.prenomMere,nomMere = acteNaiss.nomMere,):
-            acteNaiss.save()
-            return redirect("accueille")
-        else:
-            message = "Ceci n'existe pas dans le registre"
-            acteNaiss()
-    
-    return render(request,"pages/demandes/demande_acteNaissance.html",{'acteNaiss':acteNaiss, "message": message})
-
+@api_view(['POST'])
+def demandeNaissance(request):
+    if request.method == 'POST':
+        serializer = DemandeNaisSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(status.HTTP_201_CREATED)
 
 # ceci est le view pour effectuer une demande d'acte de mariage
-def demande_acteMariage(request):
-    acteMariage = Demande_acteMariage()
-    message = ""
-    if request.method == "POST":
-        acteMariage.prenomEpoux=request.POST["prenomEpoux"]
-        acteMariage.numeroDoc=request.POST["numeroDoc"]
-        acteMariage.nomEpoux=request.POST["nomEpoux"]
-        acteMariage.nomEpouse=request.POST["nomEpouse"]
-        acteMariage.prenomEpoux=request.POST["prenomEpoux"]
-        acteMariage.prenomEpouse=request.POST["prenomEpouse"]
-        if ActeMariage.objects.get(numeroDoc = acteMariage.numeroDoc, prenomEpoux = acteMariage.prenomEpoux, nomEpoux = acteMariage.nomEpoux, prenomEpouse = acteMariage.prenomEpouse, nomEpouse = acteMariage.nomEpouse):
-            acteMariage.save()
-            return redirect("accueille")
-        else:
-            message = "Ceci n'existe pas dans le registre"
-            acteMariage()
-    
-    return render(request,"pages/demandes/demande_acteMariage.html",{'acteMariage':acteMariage, 'message': message})
-
+@api_view(['POST'])
+def demandeMariage(request):
+    if request.method == 'POST':
+        serializer = DemandeMariageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(status.HTTP_201_CREATED)
 
 # ceci est le view pour effectuer une demande d'acte de dece
-def demande_acteDece(request):
-    acteDece = Demande_acteDece()
-    message = ""
-    if request.method == "POST":
-        acteDece.prenom = request.POST["prenom"]
-        acteDece.nom = request.POST["nom"]
-        acteDece.numeroDoc =request.POST["numeroDoc"]
-        if ActeDeces.objects.get(numeroDoc = acteDece.numeroDoc,prenom = acteDece.prenom,nom = acteDece.nom) :
-            acteDece.save()
-            return redirect("accueille")
-        else:
-            message = "Ceci n'existe pas dans le registre"
-            acteDece()
-
-    return render(request,"pages/demandes/demande_acteDeces.html",{'acteDece':acteDece, "message": message})
-
+@api_view(['POST'])
+def demandeDeces(request):
+    if request.method == 'POST':
+        serializer = DemandeDecesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(status.HTTP_201_CREATED)
 
 
 ##LISTE DES DEMANDES D'ACTES D'ETAT CIVIL
 # celui la c'est pour la liste des demandes de naissance
+@api_view(["GET"])
 def listeDemandeNaissance(request):
     demandeNaissance = Demande_acteNaissance.objects.all()
-
-    return render(request,"pages/mairie/Dashboard/listeDemande/listeDemandeNaissance.html",{'naissances':demandeNaissance})
+    serializer = DemandeNaisSerializer(demandeNaissance, context={'request':request}, many=True)
+    return Response(serializer.data)
 
 # celui ci pour les demandes de d'acte mariages
+@api_view(["GET"])
 def listeDemandeMariage(request):
-    demandeMariage = Demande_acteMariage.objects.all()
-
-    return render(request,"pages/mairie/Dashboard/listeDemande/listeDemandeMariage.html",{'mariages':demandeMariage})
+    demandeDeces = Demande_acteDece.objects.all()
+    serializer = DemandeDecesSerializer(demandeDeces, context={'request':request}, many=True)
+    return Response(serializer.data)
 
 # celui la pour les demandes de d'acte dece
-def listeDemandeDece(request):
-    demandeDece = Demande_acteDece.objects.all()
-
-    return render(request,"pages/mairie/Dashboard/listeDemande/listeDemandeDece.html",{'Deces':demandeDece})
-
-
-## DETAILS SUR LES DEMANDES
-# la view c'est pour afficher les informations concernant une demande d'acte de naissance
-def demandeNaissance(request,numeroDoc):
-    demande = Demande_acteNaissance.objects.get(numeroDoc=numeroDoc)
-
-    return render(request,"pages/mairie/Dashboard/listeDemande/demandeNaissance.html",{'acte':demande})
-
-# pour afficher les infos concernant une demande d'acte de mariage
-def demandeMariage(request,numeroDoc):
-    demande = Demande_acteMariage.objects.get(numeroDoc=numeroDoc)
-
-    return render(request,"pages/mairie/Dashboard/listeDemande/demandeMariage.html",{'acte':demande})
-
-# pour afficher les infos concernants une demande d'acte de dece
-def demandeDece(request,numeroDoc):
-    demande = Demande_acteDece.objects.get(numeroDoc=numeroDoc)
-
-    return render(request,"pages/mairie/Dashboard/listeDemande/demandeDece.html",{'acte':demande})
+@api_view(["GET"])
+def listeDemandeDeces(request):
+    demandeMariage = Demande_acteMariage.objects.all()
+    serializer = DemandeMariageSerializer(demandeMariage, context={'request':request}, many=True)
+    return Response(serializer.data)
 
 
 ## IMPRESSIONS DES DOCUMENTS A IMPRIMER

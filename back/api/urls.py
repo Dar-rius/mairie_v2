@@ -14,4 +14,12 @@ urlpatterns=[
     path('api/declare-naissance', views.declareNaissance_view, name='declareNaiss'),
     path('api/declare-mariage', views.declareMariage_view, name='declareMariage'),
     path('api/declare-deces', views.declareDeces_view, name='declareDeces'),
+    
+    ## URLS POUR LES DEMANDES
+    path('api/demande-naissance', views.demandeNaissance, name='demandeNaissance'),
+    path('api/demande-deces', views.demandeDeces, name="demandeDeces"),
+    path('api/demande-mariage', views.demandeMariage, name="demandeMariage"),
+    path('api/liste-demande-naissance', views.listeDemandeNaissance, name="listeDemandeNaissance"),
+    path('api/liste-demande-deces', views.listeDemandeDeces, name="listeDemandeDeces"),
+    path('api/liste-demande-mariage', views.listeDemandeMariage, name="listeDemandeMariage"),
 ]

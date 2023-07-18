@@ -17,3 +17,21 @@ class ActeMariageSerailizer(DocumentSerializer):
     class Meta:
         model=ActeMariage
         fields="__all__"
+
+
+class DemandeNaisSerializer(DocumentSerializer):
+    class Meta:
+        model=Demande_acteNaissance
+        fields="__all__"
+
+
+class DemandeDecesSerializer(DocumentSerializer):
+    class Meta:
+        model=Demande_acteDece
+        fields="__all__"
+
+
+class DemandeMariageSerializer(DocumentSerializer):
+    class Meta:
+        model=Demande_acteMariage
+        fields="__all__"
