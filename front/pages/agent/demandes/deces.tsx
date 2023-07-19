@@ -21,8 +21,8 @@ export default function Deces(){
     return<>
         <main>
             <div>
-                <h2>Declarations de deces</h2>
-                <p>Visionner les differentes declarations</p>
+                <h2>Demandes de deces</h2>
+                <p>Traiter les differentes demandes</p>
                </div>
 
             <div>

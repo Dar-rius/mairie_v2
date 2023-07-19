@@ -21,8 +21,8 @@ export default function Mariage(){
     return<>
         <main>
             <div>
-                <h2>Declarations de mariage</h2>
-                <p>Visionner les differentes declarations</p>
+                <h2>Demandes de mariage</h2>
+                <p>Traiter les differentes demandes</p>
                </div>
 
             <div>

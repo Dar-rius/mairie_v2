@@ -27,21 +27,21 @@ export default function Dashboard(){
                 <p>Visionner et traiter les differentes demandes</p>
             </div>
             <div>
-                <div>
+                <div onClick={()=>router.push("demandes/naissance")}>
                     <Image />
                     <p>{data.count_naiss}</p> 
                     <p>Naissance</p>
                     <Image />
                 </div>
                 
-                <div>
+                <div onClick={()=>router.push("demandes/deces")}>
                     <Image />
                     <p>{data.count_deces}</p>                    
                     <p>Deces</p>
                     <Image />
                 </div>
                 
-                <div>
+                <div onClick={()=>router.push("demandes/mariage")}>
                     <Image />
                     <p>{data.count_mariage}</p>                    
                     <p>Mariage</p>
@@ -57,17 +57,17 @@ export default function Dashboard(){
             </div>
 
             <div>
-                <div onClick={()=>router.push("demandes/naissance")}>
+                <div onClick={()=>router.push("registre/naissance")}>
                     <Image/>
                     <p>Naissance</p>
                 </div>
 
-                <div onClick={()=>router.push("demandes/deces")}>
+                <div onClick={()=>router.push("registre/deces")}>
                     <Image/>
                     <p>Deces</p>
                 </div>
 
-                <div onClick={()=>router.push("demandes/mariage")}>
+                <div onClick={()=>router.push("registre/mariage")}>
                     <Image/>
                     <p>Mariage</p>
                 </div>

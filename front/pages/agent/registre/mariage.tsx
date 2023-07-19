@@ -11,9 +11,10 @@ export default function Naissance(){
         prenom: ''
     }
     const [data, setData] = useState([structData])
+    const router = useRouter()
     
     useEffect(()=>{
-        axios.get('http://localhost:8000/api/liste-demande-naissance')
+        axios.get('http://localhost:8000/api/liste-mariage')
         .then((res)=>setData(res.data))
         .catch((err)=>console.error(err))
     },[])
@@ -21,15 +22,15 @@ export default function Naissance(){
     return<>
         <main>
             <div>
-                <h2>Demandes de naissance</h2>
-                <p>Traiter les differentes demandes</p>
+                <h2>Declarations de naissance</h2>
+                <p>Visionner les differentes declarations</p>
                </div>
 
             <div>
             {data.map((item)=>(
                 <ul key={item.id}>
                     <li >
-                        <div>
+                        <div onClick={()=>router}>
                             <Image/>
                             <p>{item.numeroDoc}</p>
                             <p>{item.prenom} {item.nom}</p>
