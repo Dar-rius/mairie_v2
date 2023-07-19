@@ -1,15 +1,16 @@
 import Image from 'next/image'
-import useRouter from 'next/router'
+import {useRouter} from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export default function Dashboard(){
-    let dataCount = {
+    const dataCount = {
         count_naiss:0,
         count_deces:0,
         count_mariage:0
     }
     
+    const router = useRouter()
     const [data, setData] = useState(dataCount)
 
     useEffect(()=>{
@@ -17,6 +18,7 @@ export default function Dashboard(){
         .then((res)=>setData(res.data))
         .catch((err)=>console.error(err))
     },[])
+
     return<>
     <main>
         <div>
@@ -55,17 +57,17 @@ export default function Dashboard(){
             </div>
 
             <div>
-                <div>
+                <div onClick={()=>router.push("demandes/naissance")}>
                     <Image/>
                     <p>Naissance</p>
                 </div>
 
-                <div>
+                <div onClick={()=>router.push("demandes/deces")}>
                     <Image/>
                     <p>Deces</p>
                 </div>
 
-                <div>
+                <div onClick={()=>router.push("demandes/mariage")}>
                     <Image/>
                     <p>Mariage</p>
                 </div>
