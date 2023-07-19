@@ -228,8 +228,10 @@ def demandeNaissance(request):
         serializer = DemandeNaisSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(status.HTTP_201_CREATED)
-
+            return Response(status=status.HTTP_201_CREATED)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 # ceci est le view pour effectuer une demande d'acte de mariage
 @api_view(['POST'])
 def demandeMariage(request):
@@ -237,7 +239,7 @@ def demandeMariage(request):
         serializer = DemandeMariageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_201_CREATED)
 
 # ceci est le view pour effectuer une demande d'acte de dece
 @api_view(['POST'])
@@ -246,7 +248,7 @@ def demandeDeces(request):
         serializer = DemandeDecesSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        return Response(status.HTTP_201_CREATED)
+            return Response(status.HTTP_201_CREATED)
 
 
 ##LISTE DES DEMANDES D'ACTES D'ETAT CIVIL

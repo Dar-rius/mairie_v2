@@ -4,7 +4,7 @@
 }
 
 
-/*formulaire de demandes
+/*formulaire de demandes*/
 .fields{
   border-radius: 15px 0px;
   border: 3px solid #A200FF;
@@ -17,13 +17,13 @@
 }
 
 
-/*pour le footer
+/*pour le footer*/
 .ligne{
   background: rgba(237, 11, 92, 0.90);
 }
 
 
-/*pour la mairie
+/*pour la mairie*/
 .choice-bouton{
   border-radius: 25px;
   background: #FFF;
