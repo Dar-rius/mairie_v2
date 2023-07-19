@@ -139,26 +139,19 @@ def changeMariage(request, numeroDoc):
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 # view pour le dashboard
+@api_view(['GET'])
 def dashboard_view(request):
     acteNaiss=ActeNaissance.objects.all().count()
     acteDeces=ActeDeces.objects.all().count()
     acteMariage=ActeMariage.objects.all().count()
-    demandeNaiss=Demande_acteNaissance.objects.all().count()
-    demandeDeces=Demande_acteDece.objects.all().count()
-    demandeMariage=Demande_acteMariage.objects.all().count()
-    return render(request,"pages/mairie/Dashboard/dashbord.html",{
-        "acteNaiss": acteNaiss,
-        "acteDece": acteDeces,
-        "acteMariage": acteMariage,
-        "demandeNaiss": demandeNaiss,
-        "demandeDeces": demandeDeces,
-        "demandeMariage": demandeMariage,
+    return Response({
+        "count_naiss": acteNaiss,
+        "count_mariage": acteMariage,
+        "count_deces": acteDeces
     })
-
-
-
+    
+    
 ## LISTE DES REGISTRE
 # view pour afficher la liste l'ensembles des actes de naissance
 @api_view(['GET'])
