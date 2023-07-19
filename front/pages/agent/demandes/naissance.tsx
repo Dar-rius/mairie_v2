@@ -33,6 +33,7 @@ export default function Naissance(){
                             <Image/>
                             <p>{item.numeroDoc}</p>
                             <p>{item.prenom} {item.nom}</p>
+                            <Image/>
                         </div>
                     </li>
                 </ul>
