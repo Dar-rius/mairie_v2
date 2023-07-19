@@ -2,22 +2,11 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import {useRouter} from 'next/router'
 import Image from 'next/image'
+import { GetServerSideProps } from 'next'
 
-export default function Naissance(){
-    const structData={
-        id:'',
-        numeroDoc: 0,
-        nom: '',
-        prenom: ''
-    }
-    const [data, setData] = useState([structData])
+export default function Naissance({data}:{data:structData[]}){
+    console.log(data)
     const router = useRouter()
-
-    useEffect(()=>{
-        axios.get('http://localhost:8000/api/liste-naissance')
-        .then((res)=>setData(res.data))
-        .catch((err)=>console.error(err))
-    },[])
 
     return<>
         <main>
@@ -30,7 +19,7 @@ export default function Naissance(){
             {data.map((item)=>(
                 <ul key={item.id}>
                     <li >
-                        <div onClick={()=>router}>
+                        <div onClick={()=>router.push(`${item.numeroDoc}`)}>
                             <Image/>
                             <p>{item.numeroDoc}</p>
                             <p>{item.prenom} {item.nom}</p>
@@ -43,4 +32,17 @@ export default function Naissance(){
             </div>
         </main>
     </>
+}
+
+type structData={
+        id:'',
+        numeroDoc: 0,
+        nom: '',
+        prenom: ''
+    }
+
+export const getServerSideProps: GetServerSideProps = async() =>{    
+    const res = await fetch('http://localhost:8000/api/liste-naissance')
+    const data : structData[] = await res.json()
+        return{props:{data}}
 }

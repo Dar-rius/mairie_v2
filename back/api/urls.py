@@ -35,6 +35,4 @@ urlpatterns=[
     path('api/update-naissance/<int:numeroDoc>', views.changeNaissance, name='updateNaissance'),
     path('api/update-mariage/<int:numeroDoc>', views.changeMariage ,name='updateMariage'),
     path('api/update-deces/<int:numeroDoc>', views.changeDeces, name='updateDeces'),
-
-
 ]

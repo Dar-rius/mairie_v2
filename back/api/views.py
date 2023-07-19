@@ -207,11 +207,12 @@ def naissance_view(request,numeroDoc):
     try:
         acteNaissance = ActeNaissance.objects.get(numeroDoc=numeroDoc)
     except acteNaissance.DoesNotExist:
-        return Response(status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
         serializer = ActeNaisSerializer(acteNaissance, context={'request':request})
         return Response(serializer.data)
-
+    print(serializer.errors)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 ## FORMULAIRE DES DEMANDES
 # ceci est le view pour effectuer une demande d'acte de naissance
