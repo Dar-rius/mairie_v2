@@ -3,7 +3,7 @@ import { useState } from "react"
 
 
 export default function Naissance(){
-    const test2={
+    const structData={
         numeroDoc:0,
         prenom:'',
         nom:'',
@@ -12,7 +12,7 @@ export default function Naissance(){
         prenomMere:'',       
         nomMere:'',
     }
-    const [data, setData] = useState(test2)
+    const [data, setData] = useState(structData)
 
     const postData= ()=>{
        axios.post('http://localhost:8000/api/demande-naissance', data)
