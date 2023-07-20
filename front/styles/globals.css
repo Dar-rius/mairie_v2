@@ -3,6 +3,11 @@
   --color-bouton: #A200FF
 }
 
+body{
+  background: #070707;
+  color:white
+}
+
 
 /*formulaire de demandes*/
 .fields{

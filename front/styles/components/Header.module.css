@@ -1,0 +1,16 @@
+.header{
+    margin-top: 3%;
+    font-family: "Arial Rounded MT";
+    font-weight: 500;
+    margin-bottom: 5%;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    margin-left: 2%;
+}
+
+.logo svg{
+    margin-right: 1.5%;
+}
