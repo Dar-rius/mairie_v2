@@ -1,24 +1,10 @@
 import Image from 'next/image'
 import {useRouter} from 'next/router'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { GetServerSideProps } from 'next'
 
-export default function Dashboard(){
-    const dataCount = {
-        count_naiss:0,
-        count_deces:0,
-        count_mariage:0
-    }
-    
+export default function Dashboard({data}:{data:StructData}){
     const router = useRouter()
-    const [data, setData] = useState(dataCount)
-
-    useEffect(()=>{
-        axios.get('http://localhost:8000/api/dashboard')
-        .then((res)=>setData(res.data))
-        .catch((err)=>console.error(err))
-    },[])
-
+    console.log(data)
     return<>
     <main>
         <div>
@@ -75,4 +61,16 @@ export default function Dashboard(){
         </div>
     </main>
     </>
+}
+
+type StructData = {
+        count_naiss:0,
+        count_deces:0,
+        count_mariage:0
+    }
+ 
+export const getServerSideProps: GetServerSideProps = async() => {
+    const res = await fetch('http://localhost:8000/api/dashboard')
+    const data:StructData= await res.json()
+    return{props:{data}}
 }

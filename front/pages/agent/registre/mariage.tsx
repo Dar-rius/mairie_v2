@@ -1,24 +1,10 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
 import {useRouter} from 'next/router'
 import Image from 'next/image'
+import { GetServerSideProps } from 'next'
 
-export default function Naissance(){
-    const structData={
-        id:'',
-        numeroDoc: 0,
-        nom: '',
-        prenom: ''
-    }
-    const [data, setData] = useState([structData])
+export default function Naissance({data}:{data:StructData[]}){
     const router = useRouter()
     
-    useEffect(()=>{
-        axios.get('http://localhost:8000/api/liste-mariage')
-        .then((res)=>setData(res.data))
-        .catch((err)=>console.error(err))
-    },[])
-
     return<>
         <main>
             <div>
@@ -43,4 +29,17 @@ export default function Naissance(){
             </div>
         </main>
     </>
+}
+
+type StructData={
+        id:'',
+        numeroDoc: 0,
+        nom: '',
+        prenom: ''
+    }
+
+export const getServerSideProps: GetServerSideProps = async() =>{    
+    const res = await fetch('http://localhost:8000/api/liste-mariage')
+    const data : StructData[] = await res.json()
+        return{props:{data}}
 }
