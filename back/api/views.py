@@ -142,14 +142,15 @@ def changeMariage(request, numeroDoc):
 # view pour le dashboard
 @api_view(['GET'])
 def dashboard_view(request):
-    acteNaiss=ActeNaissance.objects.all().count()
-    acteDeces=ActeDeces.objects.all().count()
-    acteMariage=ActeMariage.objects.all().count()
-    return Response({
-        "count_naiss": acteNaiss,
-        "count_mariage": acteMariage,
-        "count_deces": acteDeces
-    })
+    if request.method=="GET":
+        acteNaiss=Demande_acteNaissance.objects.all().count()
+        acteDeces=Demande_acteDece.objects.all().count()
+        acteMariage=Demande_acteMariage.objects.all().count()
+        return Response({
+            "count_naiss": acteNaiss,
+            "count_mariage": acteMariage,
+            "count_deces": acteDeces
+        })
     
     
 ## LISTE DES REGISTRE
