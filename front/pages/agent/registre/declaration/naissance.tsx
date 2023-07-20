@@ -10,7 +10,8 @@ export default function Naissance(){
 
     const postData=()=>{
         axios.post('http://localhost:8000/api/declare-naissance', 
-        data)
+        data).then((res)=>console.log(res.data))
+            .catch((err)=>console.error(err))
     }
 
     const [data, setData] = useState(structData)

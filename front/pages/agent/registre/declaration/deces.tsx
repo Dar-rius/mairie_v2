@@ -10,7 +10,8 @@ export default function Naissance(){
 
     const postData=()=>{
         axios.post('http://localhost:8000/api/declare-deces', 
-        data)
+        data).then((res)=>console.log(res.data))
+            .catch((err)=>console.error(err))
     }
 
     const [data, setData] = useState(structData)
@@ -25,7 +26,7 @@ export default function Naissance(){
     return<>
         <main>
             <div>
-                <h2>Declaration de <span>Naissance</span></h2>
+                <h2>Declaration de <span>Deces</span></h2>
             </div>
 
             <form onSubmit={handleSubmit}>

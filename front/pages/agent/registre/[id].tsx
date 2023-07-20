@@ -3,7 +3,7 @@ import axios from 'axios'
 import { GetServerSideProps} from 'next'
 
 export default function Registre({data}:{data:StructData}){
-
+  console.log(data)
   return<>
     <main>
       <div>
@@ -31,8 +31,8 @@ type StructData={
 }
 
 export const getServerSideProps: GetServerSideProps = async(context) =>{
-  const id = context.query
-  const res = await fetch(`http://localhost/api/naissance/${id}`)
+  const {id} = context.query
+  const res = await fetch(`http://localhost:8000/api/naissance/${id}`)
   const data:StructData = await res.json()
   return {props:{data}}
 }

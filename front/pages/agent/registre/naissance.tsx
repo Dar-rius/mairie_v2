@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { GetServerSideProps } from 'next'
 
 export default function Naissance({data}:{data:structData[]}){
-    console.log(data)
     const router = useRouter()
 
     return<>
