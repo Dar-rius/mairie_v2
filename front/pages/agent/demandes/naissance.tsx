@@ -1,31 +1,34 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
 import {useRouter} from 'next/router'
 import Image from 'next/image'
 import { GetServerSideProps } from 'next'
+import styles from '../../../styles/agents/data.module.css' 
+import Header from '../../../components/header'
 
 export default function Naissance({data}:{data:StructData[]}){
     return<>
-        <main>
+        <Header/>
+        <main className={styles.main}>
             <div>
-                <h2>Demandes de naissance</h2>
-                <p>Traiter les differentes demandes</p>
+                <h1>Demandes de naissance</h1>
+                <p style={{"marginBottom":"3%", "marginTop":"2%", "fontSize":"17px"}}>Traiter les differentes demandes</p>
                </div>
 
             <div>
+                <ul>
             {data.map((item)=>(
-                <ul key={item.id}>
-                    <li >
-                        <div>
-                            <Image/>
-                            <p>{item.numeroDoc}</p>
-                            <p>{item.prenom} {item.nom}</p>
-                            <Image/>
+                    <li key={item.id}>
+                        <div className={styles.liste}>
+                            <div>
+                                <Image src="/bibe.png" width={40} height={40} />
+                                <p style={{"borderRight":"1px solid", "width":"3%"}}>{item.numeroDoc}</p>
+                                <p>{item.prenom} {item.nom}</p>    
+                            </div>
+                            <Image src="/go.png" width={25} height={25}/>
                         </div>
                     </li>
-                </ul>
             ))}
                 
+                </ul>
             </div>
         </main>
     </>

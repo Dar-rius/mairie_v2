@@ -24,7 +24,7 @@ export default function Dashboard({data}:{data:StructData}){
                 <div className={styles.card} >
                     <Image src="/Icons/biberon-tetine.png" width={70} height={70}/>
                     <p className={styles.count}>{data.count_naiss}</p> 
-                    <a href='' className={styles.subCard} onClick={()=>router.push("demandes/naissance")}>
+                    <a className={styles.subCard} onClick={()=>router.push("demandes/naissance")}>
                        <p>Naissance</p>
                         <Image src={'/go.png'} width={25} height={25}/>
                     </a>
@@ -34,7 +34,7 @@ export default function Dashboard({data}:{data:StructData}){
                     <Image src="/Icons/tombeau.png" width={70} height={70}/>
                     <p className={styles.count} >{data.count_deces}</p>                    
                     <div>
-                    <a href='' className={styles.subCard} onClick={()=>router.push("demandes/deces")}>
+                    <a className={styles.subCard} onClick={()=>router.push("demandes/deces")}>
                         <p>Deces</p>
                         <Image src={'/go.png'} width={25} height={25}/>
                     </a>
@@ -45,7 +45,7 @@ export default function Dashboard({data}:{data:StructData}){
                     <Image src="/Icons/anneaux.png" width={70} height={70}/>
                     <p className={styles.count}>{data.count_mariage}</p>                    
                     <div>
-                    <a href='' className={styles.subCard} onClick={()=>router.push("demandes/mariage")}>
+                    <a className={styles.subCard} onClick={()=>router.push("demandes/mariage")}>
                         <p>Mariage</p>
                         <Image src={'/go.png'} width={25} height={25}/>
                     </a>
@@ -61,17 +61,17 @@ export default function Dashboard({data}:{data:StructData}){
             </div>
 
             <div>
-                <a href='' onClick={()=>router.push("registre/naissance")}>
+                <a onClick={()=>router.push("registre/naissance")}>
                     <Image src="/Icons/biberon-tetine.png" width={50} height={50}/>
                     <p>Naissance</p>
                 </a>
 
-                <a href='' onClick={()=>router.push("registre/deces")}>
+                <a onClick={()=>router.push("registre/deces")}>
                     <Image src="/Icons/tombeau.png" width={50} height={50}/>
                     <p>Deces</p>
                 </a>
 
-                <a href='' onClick={()=>router.push("registre/mariage")}>
+                <a onClick={()=>router.push("registre/mariage")}>
                     <Image src="/Icons/anneaux.png" width={50} height={50}/>
                     <p>Mariage</p>
                 </a>
