@@ -1,0 +1,54 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+    align-items: center;
+    font-family: "Arial Rounded MT";
+}
+
+.element{
+    width: 30%;
+}
+
+.main span{
+    color: #A200FF;
+}
+
+.main form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main input{
+    height: 10%;
+    margin-top: 15%;
+    padding: 5%;
+    border-radius: 15px 0px;
+    border: 3px solid #A200FF;
+    box-shadow: 0px 4px 4px 0px rgba(248, 247, 247, 0.07);
+    background: transparent;
+    color: white;
+}
+
+.main input:focus{
+    border-radius: 15px 0px;
+    border: 3px solid #A200FF;
+}
+
+.sub{
+    margin-top: 15%;
+}
+
+.sub button{
+    padding: 4%;
+    color: white;
+    padding-left: 10%;
+    padding-right: 10%;
+    border: none;
+    border-radius: 15px;
+    background: #A200FF;
+}
