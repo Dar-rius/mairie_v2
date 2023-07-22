@@ -19,7 +19,7 @@ export default function Naissance({data}:{data:structData[]}){
             <ul >
                 {data.map((item)=>(
                     <li key={item.id}>
-                        <div className={styles.liste} onClick={()=>router.push(`${item.numeroDoc}`)}>
+                        <div className={styles.liste} onClick={()=>router.push(`data-naissance/${item.numeroDoc}`)}>
                             <div>
                                 <Image src="/bibe.png" width={40} height={40} />
                                 <p style={{"borderRight":"1px solid", "width":"3%"}}>{item.numeroDoc}</p>

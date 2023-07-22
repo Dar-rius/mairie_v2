@@ -3,6 +3,7 @@
     margin-right: 2%;
     font-family: "Arial Rounded MT";
     margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .main h1{
@@ -22,6 +23,6 @@
 .data div{
     display: flex;
     justify-content: space-between;
-    margin-left: 4%;
-    margin-right: 4%;
+    padding-left: 4%;
+    padding-right: 4%;
 }
