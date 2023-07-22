@@ -1,0 +1,27 @@
+.main{
+    margin-left: 2%;
+    margin-right: 2%;
+    font-family: "Arial Rounded MT";
+    margin-top: 5%;
+}
+
+.main h1{
+    text-align: center;
+}
+
+.data{
+    background-color: white;
+    color: black;
+    margin-left: 20%;
+    margin-right:20%;
+    border-radius: 25px;
+    background: #FFF;
+    backdrop-filter: blur(13.51388931274414px);
+}
+
+.data div{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 4%;
+    margin-right: 4%;
+}

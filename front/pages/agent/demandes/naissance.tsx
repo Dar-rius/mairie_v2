@@ -5,6 +5,8 @@ import styles from '../../../styles/agents/data.module.css'
 import Header from '../../../components/header'
 
 export default function Naissance({data}:{data:StructData[]}){
+    const router = useRouter()
+
     return<>
         <Header/>
         <main className={styles.main}>
@@ -18,7 +20,7 @@ export default function Naissance({data}:{data:StructData[]}){
             {data.map((item)=>(
                     <li key={item.id}>
                         <div className={styles.liste}>
-                            <div>
+                            <div onClick={()=>{router.push(`/${item.id}`)}}>
                                 <Image src="/bibe.png" width={40} height={40} />
                                 <p style={{"borderRight":"1px solid", "width":"3%"}}>{item.numeroDoc}</p>
                                 <p>{item.prenom} {item.nom}</p>    
