@@ -3,11 +3,11 @@ import Step1 from './step1'
 import Step2 from './step2'
 import Step3 from './step3'
 import Step4 from './step4'
-import styles from '../../../../../../styles/agents/forms.module.css'
+import styles from '../../../../../styles/agents/forms.module.css'
 import { useState } from 'react'
-import { ObjectNaissance} from '../../../structure'
+import { ObjectNaissance} from '../../structure'
 import axios from 'axios'
-import Header from '../../../../../../components/header'
+import Header from '../../../../../components/header'
 
 export default function Index(){
    const [data, setData] = useState(ObjectNaissance)

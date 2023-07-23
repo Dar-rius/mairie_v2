@@ -1,8 +1,6 @@
 .main{
     margin: 2% 5% 5% 5%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+   text-align: center;
     font-family: "Arial Rounded MT";
 }
 
@@ -10,14 +8,14 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 27%;
+    margin-right: 27%;
 }
 
 .main input, .main select{
-    height: 10%;
-    margin-top: 8%;
-    padding: 4%;
+    height: 2%;
+    margin-top: 4%;
+    padding: 3%;
     border-radius: 15px 0px;
     border: 3px solid #A200FF;
     box-shadow: 0px 4px 4px 0px rgba(248, 247, 247, 0.07);
