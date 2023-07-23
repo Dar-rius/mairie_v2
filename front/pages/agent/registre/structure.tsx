@@ -2,27 +2,30 @@
 
 //Structure de l'objet Naissance
 export type TypeNaissance = {
-  numeroDoc: 0;
-  Annee: "";
-  prenom: "";
-  nom: "";
-  sexe:'';
-  dateNaissance: "";
-  heure:'';
-  lieuNaissance:'';
-  formationSanitaire:'';
-  prenomPere:'';
-  nomPere:'';
+  numeroDoc: 0,
+  Annee: "",
+  prenom: "",
+  nom: "",
+  sexe:'',
+  dateNaissance: "",
+  heure:'',
+  lieuNaissance:'',
+  formationSanitaire:'',
+
+  prenomPere:'',
+  nomPere:'',
   dateNaissancePere:'',
   lieuNaissancePere:'',
   professionPere:'',
   domicilePere:'',
+
   prenomMere:'',
   nomMere:'',
   dateNaissanceMere:'',
   lieuNaissanceMere:'',
   professionMere:'',
   domicileMere:'',
+
   nomDeclarateur:'',
   prenomDeclarateur:'',
   adresseDeclarateur:'',
@@ -31,6 +34,38 @@ export type TypeNaissance = {
   jugeAutoDate:'',
 };
 
+export const ObjectNaissance = {
+  numeroDoc: 0,
+  Annee: "",
+  prenom: "",
+  nom: "",
+  sexe:'',
+  dateNaissance: "",
+  heure:'',
+  lieuNaissance:'',
+  formationSanitaire:'',
+
+  prenomPere:'',
+  nomPere:'',
+  dateNaissancePere:'',
+  lieuNaissancePere:'',
+  professionPere:'',
+  domicilePere:'',
+
+  prenomMere:'',
+  nomMere:'',
+  dateNaissanceMere:'',
+  lieuNaissanceMere:'',
+  professionMere:'',
+  domicileMere:'',
+
+  nomDeclarateur:'',
+  prenomDeclarateur:'',
+  adresseDeclarateur:'',
+  numeroIdentification:'',
+  jugeAutoNumero:'',
+  jugeAutoDate:'',
+}
 
 //Structure de l'objet Deces
 export type TypeDeces = {
@@ -48,14 +83,17 @@ export type TypeDeces = {
     profession:'',
     domicile:'',
     mari:'',
+
     nomPere:'',
     prenomPere:'',
     domicilePere:'',
     professionPere:'',
+
     nomMere:'',
     prenomMere:'',
     domicileMere:'',
     professionMere:'',
+
     prenomDeclarant:'',
     nomDeclarant:'',
     adresseDeclarateur:'',
@@ -72,6 +110,7 @@ export type TypeMariage = {
     lieuMariage:'',
     devant:'',
     officierEtat:'',
+
     prenomEpoux:'',
     nomEpoux:'',
     dateNaissEpoux:'',
@@ -80,18 +119,21 @@ export type TypeMariage = {
     domicileEpoux:'',
     residenceEpoux:'',
     epouse:'',
+
     prenomPereEpoux:'',
     nomPereEpoux:'',
     dateNaissPereEpoux:'',
     lieuNaissPereEpoux:'',
     professionPereEpoux:'',
     domicilePereEpoux:'',
+
     prenomMereEpoux:'',
     nomMereEpoux:'',
     dateNaissMereEpoux:'',
     lieuNaissMereEpoux:'',
     professionMereEpoux:'',
     domicileMereEpoux:'',
+
     prenomEpouse:'',
     nomEpouse:'',
     dateNaissEpouse:'',
@@ -100,18 +142,21 @@ export type TypeMariage = {
     domicileEpouse:'',
     residenceEpouse:'',
     epoux:'',
+
     prenomPereEpouse:'',
     nomPereEpouse:'',
     dateNaissPereEpouse:'',
     lieuNaissPereEpouse:'',
     professionPereEpouse:'',
     domicilePereEpouse:'',
+
     prenomMereEpouse:'',
     nomMereEpouse:'',
     dateNaissMereEpouse:'',
     lieuNaissMereEpouse:'',
     professionMereEpouse:'',
     domicileMereEpouse:'',
+
     declaration:'',
     dot:'',
     regimeMatrimonial:'',
@@ -119,15 +164,19 @@ export type TypeMariage = {
     lieuCelebration:'',
     jugeAutoNumero:'',
     jugeAutoDate:'',
+
     temoinNom1:'',
     temoinPrenom1:'',
     temoinNumId1:'',
+
     temoinNom2:'',
     temoinPrenom2:'',
     temoinNumId2:'',
+
     temoinNom3:'',
     temoinPrenom3:'',
     temoinNumId3:'',
+
     temoinNom4:'',
     temoinPrenom4:'',
     temoinNumId4:''

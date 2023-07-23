@@ -16,7 +16,7 @@ export default function Login(){
                     <input type="text" name="password" placeholder="password" />
                     <div>
                         <button type="submit">Se connecter</button>
-                   </div>
+                    </div>
                 </form>
             </div>
         </main>
