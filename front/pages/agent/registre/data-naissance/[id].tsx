@@ -3,7 +3,7 @@ import styles from "../../../../styles/agents/declaration.module.css";
 import Header from "../../../../components/header";
 import { TypeNaissance } from "../structure";
 
-export default function Registre({ data }: { data: StructData }) {
+export default function Registre({ data }: { data: TypeNaissance }) {
   console.log(data);
   return (
     <>

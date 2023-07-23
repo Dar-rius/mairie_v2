@@ -1,9 +1,9 @@
 import { GetServerSideProps } from "next";
 import styles from "../../../../styles/agents/declaration.module.css";
 import Header from "../../../../components/header";
-import { TypeNaissance } from "../structure";
+import { TypeMariage } from "../structure";
 
-export default function Registre({ data }: { data: StructData }) {
+export default function Registre({ data }: { data: TypeMariage }) {
   console.log(data);
   return (
     <>
@@ -337,6 +337,6 @@ export default function Registre({ data }: { data: StructData }) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
   const res = await fetch(`http://localhost:8000/api/mariage/${id}`);
-  const data: TypeNaissance = await res.json();
+  const data: TypeMariage = await res.json();
   return { props: { data } };
 };
