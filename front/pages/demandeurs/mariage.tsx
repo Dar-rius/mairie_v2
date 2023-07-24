@@ -3,8 +3,10 @@ import { useState } from 'react'
 import styles from '../../styles/demandeur/form.module.css' 
 import Header from '../../components/header'
 import Footer from '../../components/footer'
+import { useRouter} from 'next/router'
 
 export default function Mariage(){
+    const router = useRouter()
     const structData={
         numeroDoc:0,
         prenomEpoux:'',
@@ -18,8 +20,10 @@ export default function Mariage(){
 
     const postData= ()=>{
        axios.post('http://localhost:8000/api/demande-mariage', data)
-        .then((res)=>{console.log(res.data)})
+        .then((res)=>{console.log(res.data)
+        router.push("/")})
         .catch((err)=>console.error(err))
+        
     }
     
     const handleChange=(e:any)=>{

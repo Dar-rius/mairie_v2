@@ -3,8 +3,10 @@ import {useState} from 'react'
 import styles from '../../styles/demandeur/form.module.css' 
 import Header from '../../components/header'
 import Footer from '../../components/footer'
+import { useRouter } from 'next/router'
 
 export default function Deces(){
+    const router = useRouter() 
     const structData={
         numeroDoc:0,
         prenom:'',
@@ -19,7 +21,8 @@ export default function Deces(){
 
     const postData= ()=>{
        axios.post('http://localhost:8000/api/demande-deces', data)
-        .then((res)=>{console.log(res.data)})
+         .then((res)=>{console.log(res.data)
+        router.push("/")})
         .catch((err)=>console.error(err))
     }
     

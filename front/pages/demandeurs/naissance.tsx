@@ -3,8 +3,10 @@ import { useState } from "react"
 import Header from "../../components/header"
 import Footer from "../../components/footer"
 import styles from '../../styles/demandeur/form.module.css' 
+import { useRouter} from "next/router"
 
 export default function Naissance(){
+    const router = useRouter()
     const structData={
         numeroDoc:0,
         prenom:'',
@@ -18,7 +20,8 @@ export default function Naissance(){
 
     const postData= ()=>{
        axios.post('http://localhost:8000/api/demande-naissance', data)
-        .then((res)=>{console.log(res.data)})
+        .then((res)=>{console.log(res.data)
+        router.push("/")})
         .catch((err)=>console.error(err))
     }
     

@@ -1,9 +1,8 @@
 import styles from "../styles/components/Header.module.css"
-import Image from "next/image"
 
 export default function Header(){
     return<header className={styles.header}>
-        <div className={styles.logo}>
+        <a className={styles.logo} href="/" >
          <svg xmlns="http://www.w3.org/2000/svg" width="87" height="35" viewBox="0 0 87 35" fill="none">
         <g clip-path="url(#clip0_92_349)">
             <path d="M20.651 0C17.2534 0 13.9951 1.41173 11.5926 3.92462L3.75211 12.1256C1.34967 14.6385 0 18.0467 0 21.6005C0 29.0009 5.73546 35 12.8105 35C16.2081 35 19.4665 33.5882 21.8689 31.0753L27.2922 25.4027C27.2922 25.4025 27.2923 25.4028 27.2922 25.4027L43.094 8.87437C44.2414 7.67423 45.7976 7 47.4202 7C50.1369 7 52.44 8.85198 53.2385 11.4147L58.2255 6.19845C55.9505 2.4714 51.9613 0 47.4202 0C44.0227 0 40.7643 1.41173 38.3619 3.92462L17.1368 26.1256C15.9894 27.3258 14.4332 28 12.8105 28C9.43151 28 6.69231 25.1349 6.69231 21.6005C6.69231 19.9032 7.3369 18.2755 8.48428 17.0753L16.3248 8.87437C17.4722 7.67423 19.0283 7 20.651 7C23.3678 7 25.6708 8.85206 26.4693 11.4149L31.4564 6.19858C29.1814 2.47147 25.1922 0 20.651 0Z" fill="url(#paint0_linear_92_349)"/>
@@ -22,6 +21,6 @@ export default function Header(){
 
     <h2>E-citizenSn</h2>
             
-        </div>
+        </a>
    </header>
 }

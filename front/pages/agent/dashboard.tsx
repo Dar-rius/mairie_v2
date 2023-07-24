@@ -3,10 +3,29 @@ import {useRouter} from 'next/router'
 import { GetServerSideProps } from 'next'
 import Header from '../../components/header'
 import styles from '../../styles/agents/dashboard.module.css'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import {useState} from 'react'
 
 export default function Dashboard({data}:{data:StructData}){
     const router = useRouter()
-    console.log(data)
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);  
+    const style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'black',
+        borderRadius:'24px',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
     return<>
     <Header/>
     <main className={styles.main}>
@@ -16,9 +35,30 @@ export default function Dashboard({data}:{data:StructData}){
                     <div>Demandes a traiter</div>
                     <p>Visionner et traiter les differentes demandes</p>
                 </div>
-                <a href="" onClick={""}>
+                <a onClick={handleOpen}>
                     <Image src="/ajouter.png" width={40} height={40}/>                
                 </a>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign:"center", fontWeight:"bolder"}}>
+                        Nouvelle declaration
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2, 
+                            display:"flex",
+                            flexDirection:"column", 
+                            textAlign:"center",
+                            fontSize:"18px" }}>
+                        <a onClick={()=>router.push("registre/declaration/naissance")} style={{marginBottom:"5%"}}>Naissance</a>
+                        <a onClick={()=>router.push("registre/declaration/deces")} style={{marginBottom:"5%"}}>Deces</a>
+                        <a onClick={()=>router.push("registre/declaration/mariage")}>Mariage</a>
+                    </Typography>
+                    </Box>
+                </Modal>
             </div>
             <div className={styles.cards}>
                 <div className={styles.card} >

@@ -19,7 +19,7 @@ export default function Home() {
           Lorem Ipsum is simply dummy text of the printing 
           and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever. 
         </p>
-        <a href="" className={styles.button}>Commencez !</a>  
+        <a href="#secCard" className={styles.button}>Commencez !</a>  
       </div>
       
       <div id="canvas3d">
@@ -27,7 +27,7 @@ export default function Home() {
       </div>
     </div>
 
-    <div className={styles.secondPart}>
+    <div className={styles.secondPart} id="secCard">
       <p className={styles.title3}>Faites vos demandes</p>
       <div className={styles.acte}>
         <div>
