@@ -1,7 +1,4 @@
-:root{
-  --gradient-border: linear-gradient(#A200FF, #FF008A7E, #0038FFA1)
-  --color-bouton: #A200FF
-}
+
 
 html{
   scroll-behavior: smooth;

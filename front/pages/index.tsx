@@ -26,7 +26,7 @@ export default function Home() {
       <Spline scene='https://prod.spline.design/eCHEGykxgYjB1qHQ/scene.splinecode'/>
       </div>
     </div>
-//Second part
+
     <div className={styles.secondPart} id="secCard">
       <p className={styles.title3}>Faites vos demandes</p>
       <div className={styles.acte}>
