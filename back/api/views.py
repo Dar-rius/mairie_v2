@@ -225,31 +225,58 @@ def naissance_view(request,numeroDoc):
 @api_view(['POST'])
 def demandeNaissance(request):
     if request.method == 'POST':
-        serializer = DemandeNaisSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+        if ActeNaissance.objects.get(numeroDoc=request.data.get('numeroDoc'),
+                                    prenom=request.data.get('prenom'),
+                                    nom=request.data.get('nom'),
+                                    dateNaisssance=request.data.get('dateNaissance'),
+                                    prenomPere=request.data.get('prenomPere'),
+                                    nomPere=request.data.get('nomPere'),
+                                    prenomMere=request.data.get('prenomMere'),
+                                    nomMere=request.data.get('nomMere')):
+            serializer = DemandeNaisSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_404_FOUND)
+
 # ceci est le view pour effectuer une demande d'acte de mariage
 @api_view(['POST'])
 def demandeMariage(request):
     if request.method == 'POST':
-        serializer = DemandeMariageSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
-        return Response(serializer.erros, status=status.HTTP_400_BAD_REQUEST)    
+        if ActeMariage.objects.get(numeroDoc=request.data.get('numeroDoc'),
+                                    prenomEpoux=request.data.get('prenomEpoux'),
+                                    nomEpoux=request.data.get('nomEpoux'),
+                                    dateDeclaration=request.data.get('dateDeclaration'),
+                                    prenomPere=request.data.get('prenomPere'),
+                                    nomEpouse=request.data.get('nomEpouse'),
+                                    prenomEpouse=request.data.get('prenomPere')):
+            serializer = DemandeMariageSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.erros, status=status.HTTP_400_BAD_REQUEST)    
+        return Response(status=status.HTTP_404_FOUND)
 
 # ceci est le view pour effectuer une demande d'acte de dece
 @api_view(['POST'])
 def demandeDeces(request):
     if request.method == 'POST':
-        serializer = DemandeDecesSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+        if ActeDeces.objects.get(numeroDoc=request.data.get('numeroDoc'),
+                                    prenom=request.data.get('prenom'),
+                                    nom=request.data.get('nom'),
+                                    dateHeureDeces=request.data.get('dateDeclaration'),
+                                    prenomPere=request.data.get('prenomPere'),
+                                    nomPere=request.data.get('nomPere'),
+                                    prenomMere=request.data.get('prenomMere'),
+                                    nomMere=request.data.get('nomMere')):
+            serializer = DemandeDecesSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.erros, status=status.HTTP_400_BAD_REQUEST)    
+        return Response(status=status.HTTP_404_FOUND)
+
 
 
 ##LISTE DES DEMANDES D'ACTES D'ETAT CIVIL
